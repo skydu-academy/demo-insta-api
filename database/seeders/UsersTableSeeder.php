@@ -39,5 +39,8 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ]
         );
+
+        User::where('email', 'eka@badr.co.id')->update(['username' => 'eka.prasasti']);
+        User::where('email', 'academy@skydu.id')->update(['username' => 'skydu.academy']);
     }
 }

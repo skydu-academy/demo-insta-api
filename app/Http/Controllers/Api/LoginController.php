@@ -14,6 +14,7 @@ class LoginController extends Controller
     public function __invoke(Request $request)
     {
         if (Auth::attempt($request->only('email', 'password'))) {
+            $request->session()->regenerate();
 
             return response()->json(['data' => Auth::user()]);
         }

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () { phpinfo(INFO_VARIABLES); });
 Route::post('login')->uses(\App\Http\Controllers\Api\LoginController::class);
 Route::middleware('auth:sanctum')->group(function (\Illuminate\Routing\Router $router) {
     $router->get('feed')->uses(\App\Http\Controllers\Api\FeedController::class);
