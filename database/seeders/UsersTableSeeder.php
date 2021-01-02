@@ -19,10 +19,10 @@ class UsersTableSeeder extends Seeder
     {
         User::firstOrCreate(
             [
-                'email' => 'eka@badr.co.id',
+                'email' => 'user1@skydu.academy',
             ],
             [
-                'name' => 'Eka Prasasti',
+                'name' => 'User Satu',
                 'email_verified_at' => now(),
                 'password' => Hash::make('rahasia'), // password
                 'remember_token' => Str::random(10),
@@ -30,17 +30,29 @@ class UsersTableSeeder extends Seeder
         );
         User::firstOrCreate(
             [
-                'email' => 'academy@skydu.id',
+                'email' => 'user2@skydu.academy',
             ],
             [
-                'name' => 'Skydu Academy',
+                'name' => 'User Dua',
+                'email_verified_at' => now(),
+                'password' => Hash::make('rahasia'), // password
+                'remember_token' => Str::random(10),
+            ]
+        );
+        User::firstOrCreate(
+            [
+                'email' => 'user3@skydu.academy',
+            ],
+            [
+                'name' => 'User Tiga',
                 'email_verified_at' => now(),
                 'password' => Hash::make('rahasia'), // password
                 'remember_token' => Str::random(10),
             ]
         );
 
-        User::where('email', 'eka@badr.co.id')->update(['username' => 'eka.prasasti']);
-        User::where('email', 'academy@skydu.id')->update(['username' => 'skydu.academy']);
+        User::where('email', 'user1@skydu.academy')->update(['username' => 'user1']);
+        User::where('email', 'user2@skydu.academy')->update(['username' => 'user2']);
+        User::where('email', 'user3@skydu.academy')->update(['username' => 'user3']);
     }
 }
