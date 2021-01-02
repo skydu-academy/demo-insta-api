@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\TokenController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () { phpinfo(INFO_VARIABLES); });
-Route::post('login')->uses(\App\Http\Controllers\Api\LoginController::class);
-Route::middleware('auth:sanctum')->group(function (\Illuminate\Routing\Router $router) {
-    $router->get('feed')->uses(\App\Http\Controllers\Api\FeedController::class);
+Route::get('info', function () { phpinfo(INFO_VARIABLES); });
+Route::post('login')->uses(LoginController::class);
+Route::post('token')->uses(TokenController::class);
+Route::middleware('auth:sanctum')->namespace('App\Http\Controllers\Api')->group(function (Router $router) {
+    $router->get('token/revoke')->uses('TokenController@revokeToken');
+    $router->get('feed')->uses('FeedController');
+    $router->get('posts')->uses('FeedController');
 });
