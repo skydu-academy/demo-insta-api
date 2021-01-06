@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TokenController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -17,12 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('info', function () { phpinfo(INFO_VARIABLES); });
 Route::post('login')->uses(LoginController::class);
 Route::post('token')->uses(TokenController::class);
+Route::get('profile/{identifier?}')->uses(ProfileController::class);
 Route::middleware('auth:sanctum')->namespace('App\Http\Controllers\Api')->group(function (Router $router) {
     $router->get('token/revoke')->uses('TokenController@revokeToken');
     $router->get('feed')->uses('FeedController');
+    $router->resource('comments', 'CommentController');
     $router->resource('posts', 'PostController');
     $router->post('posts/{post}/like', 'PostController@updateLikes');
 });

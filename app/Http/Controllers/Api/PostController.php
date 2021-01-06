@@ -7,7 +7,6 @@ use App\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
@@ -24,17 +23,6 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param Post $post
@@ -46,10 +34,10 @@ class PostController extends Controller
             throw new AccessDeniedHttpException("This post is not available right now");
         }
 
-        $postData = $post->load('comments')->toArray();
-        $postData['likes_info'] = $post->getLikesInfo(request()->user('sanctum'));
+        /*$postData = $post->load('comments')->toArray();
+        $postData['likes_info'] = $post->getLikesInfo(request()->user('sanctum'));*/
 
-        return response()->json(['data' => $postData]);
+        return response()->json(['data' => $post]);
     }
 
     /**
@@ -57,9 +45,9 @@ class PostController extends Controller
      *
      * @param Request $request
      * @param Post $post
-     * @return Response
+     * @return JsonResponse
      */
-    public function updateLikes(Request $request, Post $post)
+    public function updateLikes(Request $request, Post $post): JsonResponse
     {
         $user = $request->user('sanctum');
         $likeIndex = $post->userLikeIndex($user);
