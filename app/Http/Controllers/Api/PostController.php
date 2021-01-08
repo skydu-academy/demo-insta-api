@@ -57,7 +57,9 @@ class PostController extends Controller
         $post = Post::create([
             'user_id' => $request->user()->id,
             'image_url' => Storage::url($imagePath),
-            'caption' => $request->input('caption')
+            'caption' => $request->input('caption'),
+            'status' => 'published',
+            'likes' => '[]'
         ]);
 
         return new JsonResponse(['data' => $post]);
