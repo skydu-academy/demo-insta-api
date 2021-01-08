@@ -34,8 +34,7 @@ class PostController extends Controller
             throw new AccessDeniedHttpException("This post is not available right now");
         }
 
-        /*$postData = $post->load('comments')->toArray();
-        $postData['likes_info'] = $post->getLikesInfo(request()->user('sanctum'));*/
+        $post->load('comments');
 
         return response()->json(['data' => $post]);
     }
