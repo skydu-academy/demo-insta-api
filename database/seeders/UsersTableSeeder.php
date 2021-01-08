@@ -17,42 +17,39 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::firstOrCreate(
+        User::updateOrCreate(
             [
-                'email' => 'user1@skydu.academy',
+                'username' => 'user1',
+                'email' => 'user1@skydu.academy'
             ],
             [
                 'name' => 'User Satu',
-                'email_verified_at' => now(),
-                'password' => Hash::make('rahasia'), // password
-                'remember_token' => Str::random(10),
+                'password' => Hash::make('rahasia'),
+                'image_url' => 'https://i.pravatar.cc/150?u='.md5('user1')
             ]
         );
-        User::firstOrCreate(
+        User::updateOrCreate(
             [
-                'email' => 'user2@skydu.academy',
+                'username' => 'user2',
+                'email' => 'user2@skydu.academy'
             ],
             [
                 'name' => 'User Dua',
-                'email_verified_at' => now(),
-                'password' => Hash::make('rahasia'), // password
-                'remember_token' => Str::random(10),
+                'password' => Hash::make('rahasia'),
+                'image_url' => 'https://i.pravatar.cc/150?u='.md5('user2')
             ]
         );
-        User::firstOrCreate(
+        User::updateOrCreate(
             [
-                'email' => 'user3@skydu.academy',
+                'username' => 'user3',
+                'email' => 'user3@skydu.academy'
             ],
             [
                 'name' => 'User Tiga',
-                'email_verified_at' => now(),
-                'password' => Hash::make('rahasia'), // password
-                'remember_token' => Str::random(10),
+                'password' => Hash::make('rahasia'),
+                'image_url' => 'https://i.pravatar.cc/150?u='.md5('user3')
             ]
         );
 
-        User::where('email', 'user1@skydu.academy')->update(['username' => 'user1']);
-        User::where('email', 'user2@skydu.academy')->update(['username' => 'user2']);
-        User::where('email', 'user3@skydu.academy')->update(['username' => 'user3']);
     }
 }

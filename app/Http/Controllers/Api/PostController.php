@@ -7,7 +7,9 @@ use App\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class PostController extends Controller
@@ -43,10 +45,22 @@ class PostController extends Controller
     {
         $this->validate($request, [
             'image' => 'required|file',
-            'caption' => 'required|string|max:500'
+            'caption' => 'required|string|max:1000'
         ]);
 
+        $imageFile = $request->file('image');
+        if (!$imageFile->isValid()) {
+            throw new BadRequestHttpException('Image is not valid');
+        }
 
+        $imagePath = $imageFile->storePublicly('instaclone/posts');
+        $post = Post::create([
+            'user_id' => $request->user()->id,
+            'image_url' => Storage::url($imagePath),
+            'caption' => $request->input('caption')
+        ]);
+
+        return new JsonResponse(['data' => $post]);
     }
 
     /**

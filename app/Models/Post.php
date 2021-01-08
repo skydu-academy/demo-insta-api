@@ -19,7 +19,7 @@ class Post extends Model
 
     protected $guarded = [];
     protected $hidden = ['likes', 'user_id', 'user'];
-    protected $appends = ['likes_info', 'username'];
+    protected $appends = ['likes_info', 'username', 'user_image_url'];
 
     public function comments(): HasMany
     {
@@ -62,5 +62,10 @@ class Post extends Model
     public function getUsernameAttribute()
     {
         return $this->user->username;
+    }
+
+    public function getUserImageUrlAttribute()
+    {
+        return $this->user->image_url;
     }
 }
