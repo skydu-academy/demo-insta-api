@@ -39,6 +39,16 @@ class PostController extends Controller
         return response()->json(['data' => $post]);
     }
 
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'image' => 'required|file',
+            'caption' => 'required|string|max:500'
+        ]);
+
+
+    }
+
     /**
      * Update the specified resource in storage.
      *
